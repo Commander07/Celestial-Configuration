@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="Apache-2.0"
+[[mods]]
+modId="celesteconfig"
+version="${file.jarVersion}"
+displayName="Celestial Config"
+updateJSONURL="https://infernalstudios.org/api/mods/celesteconfig/forge"
+logoFile="Celestial_Configuration_Banner.png"
+authors="Infernal Studios"
+description='''
+Celestial Configuration is a mod that allows one to change the size of the sun and moon to whatever size you wish!
+
+Credits
+LudoCrypt - Developer
+'''
+[[dependencies.celesteconfig]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.celesteconfig]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18,)"
+    ordering="NONE"
+    side="CLIENT"
