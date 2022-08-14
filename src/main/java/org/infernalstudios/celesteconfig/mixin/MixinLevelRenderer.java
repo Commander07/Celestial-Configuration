@@ -18,19 +18,19 @@ import org.infernalstudios.celesteconfig.config.CelestialConfigOptions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import com.mojang.math.Matrix4f;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.util.math.vector.Matrix4f;
 
-import net.minecraft.client.renderer.LevelRenderer;
-
-@Mixin(LevelRenderer.class)
+@Mixin(WorldRenderer.class)
 public class MixinLevelRenderer {
 
 	@Unique
 	private Matrix4f originalCelestialMatrix;
 
-	@ModifyVariable(method = "Lnet/minecraft/client/renderer/LevelRenderer;renderSky(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/math/Matrix4f;FLnet/minecraft/client/Camera;ZLjava/lang/Runnable;)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V", ordinal = 0), ordinal = 1)
+	@ModifyVariable(method = "Lnet/minecraft/client/renderer/WorldRenderer;renderSky(Lcom/mojang/blaze3d/matrix/MatrixStack;F)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/util/ResourceLocation;)V", ordinal = 0, shift = Shift.BEFORE), index = 11)
 	private Matrix4f celesteConfig$scaleSun(Matrix4f in) {
 		originalCelestialMatrix = in.copy();
 		Matrix4f copy = in.copy();
@@ -38,7 +38,7 @@ public class MixinLevelRenderer {
 		return copy;
 	}
 
-	@ModifyVariable(method = "Lnet/minecraft/client/renderer/LevelRenderer;renderSky(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/math/Matrix4f;FLnet/minecraft/client/Camera;ZLjava/lang/Runnable;)V", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V", ordinal = 1), ordinal = 1)
+	@ModifyVariable(method = "Lnet/minecraft/client/renderer/WorldRenderer;renderSky(Lcom/mojang/blaze3d/matrix/MatrixStack;F)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/util/ResourceLocation;)V", ordinal = 1, shift = Shift.BEFORE), index = 11)
 	private Matrix4f celesteConfig$scaleMoon(Matrix4f in) {
 		Matrix4f copy = originalCelestialMatrix.copy();
 		copy.multiply(Matrix4f.createScaleMatrix((float) CelestialConfigOptions.getMoonWidthScalar(), 1.0F, (float) CelestialConfigOptions.getMoonHeightScalar()));
