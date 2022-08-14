@@ -13,6 +13,7 @@ Celestial Configuration is a mod that allows one to change the size of the sun a
 
 Credits
 LudoCrypt - Developer
+Nekomaster1000 - Artist
 '''
 [[dependencies.celesteconfig]]
     modId="forge"
@@ -23,6 +24,6 @@ LudoCrypt - Developer
 [[dependencies.celesteconfig]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18,)"
+    versionRange="[1.19,)"
     ordering="NONE"
     side="CLIENT"
