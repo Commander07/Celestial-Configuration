@@ -1,8 +1,7 @@
 package org.infernalstudios.celesteconfig;
 
+import net.fabricmc.api.ModInitializer;
 import org.infernalstudios.celesteconfig.config.CelestialConfigOptions;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -10,8 +9,7 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 public class CelestialConfiguration implements ModInitializer {
 
 	@Override
-	public void onInitialize(ModContainer mod) {
+	public void onInitialize() {
 		AutoConfig.register(CelestialConfigOptions.class, GsonConfigSerializer::new);
 	}
-
 }
